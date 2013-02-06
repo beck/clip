@@ -4,17 +4,25 @@
 # Description: Clip imagery to a specified vector boundary. 
 # ---------------------------------------------------------------------------
 
-# Import arcpy module
 import arcpy
-arcpy.env.workspace = 'C:\\Users\\90000000000\\Documents\\landSanFran\\'
+import os
+
+workspace = os.path.expanduser('~/Documents/landSanFran')
+arcpy.env.workspace = workspace
 
 # Local variables:
-boundary = 'C:\\Users\\90000000000\\Documents\\landSanFran\\Vector\\sanFranciscoBoundary.shp'
-NLCD = 'C:\\Users\\90000000000\\Documents\\landSanFran\\NLCD\\NLCD.img'
-output = 'C:\\Users\\90000000000\\Documents\\landSanFran\\imagery\\20100719\\processing\\071910'
+boundary = os.path.join(workspace, 'Vector/sanFranciscoBoundary.shp')
+NLCD = os.path.join(workspace, 'NLCD/NLCD.img')
+output = os.path.join(workspace, 'imagery/20100719/processing/071910')
 
 # Process: Clip
-arcpy.Clip_management(NLCD, '9538.187689 4171021.935430 31781.231270 4201388.824867', output, boundary, "", "ClippingGeometry")
+arcpy.Clip_management(
+    NLCD, 
+    '9538.187689 4171021.935430 31781.231270 4201388.824867', 
+    output, 
+    boundary, 
+    '', 
+    'ClippingGeometry')
 
 ##Usage: Clip_management in_raster rectangle out_raster {in_template_dataset} {nodata_value} {NONE | ClippingGeometry}
 
